@@ -1,5 +1,6 @@
 # モールス信号のマッピング辞書
 morse_code_map = {
+    # 日本語ひらがな
     'あ': '－－・－－',
     'い': '・－',
     'う': '・・－',
@@ -46,19 +47,34 @@ morse_code_map = {
     'わ': '－・－',
     'を': '・－－－',
     'ん': '・－・－－',
+
+    # アルファベット
+    'A': '・－',   'B': '－・・・', 'C': '－・－・', 'D': '－・・',  'E': '・',
+    'F': '・・－・', 'G': '－－・',  'H': '・・・・', 'I': '・・',   'J': '・－－－',
+    'K': '－・－',  'L': '・－・・', 'M': '－－',    'N': '－・',   'O': '－－－',
+    'P': '・－－・', 'Q': '－－・－', 'R': '・－・',  'S': '・・・', 'T': '－',
+    'U': '・・－',  'V': '・・・－', 'W': '・－－',  'X': '－・・－', 'Y': '－・－－',
+    'Z': '－－・・',
+
+    # 数字
+    '0': '－－－－－', '1': '・－－－－', '2': '・・－－－', '3': '・・・－－',
+    '4': '・・・・－', '5': '・・・・・', '6': '－・・・・', '7': '－－・・・',
+    '8': '－－－・・', '9': '－－－－・'
 }
 
-# 日本語をモールス信号に変換する関数
-def japanese_to_morse(japanese_text):
+# 日本語、アルファベット、数字をモールス信号に変換する関数
+def text_to_morse(text):
     morse_code = []
-    for char in japanese_text:
-        if char in morse_code_map:
-            morse_code.append(morse_code_map[char])
+    for char in text:
+        # 大文字に変換して辞書を参照
+        upper_char = char.upper()
+        if upper_char in morse_code_map:
+            morse_code.append(morse_code_map[upper_char])
         else:
             morse_code.append('?')  # 対応するモールス信号がない場合は「?」を使用
     return ' '.join(morse_code)
 
 # 使用例
-text = "こんにちは"
-morse_result = japanese_to_morse(text)
+text = "こんにちは ABC 123"
+morse_result = text_to_morse(text)
 print(f"{text} のモールス信号は: {morse_result}")
